@@ -2,7 +2,14 @@ package com.fantasy.tbs.domain;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -12,7 +19,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "time_booking")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TimeBooking implements Serializable {
+public class TimeBooking implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
@@ -22,6 +30,9 @@ public class TimeBooking implements Serializable {
 
     @Column(name = "booking")
     private ZonedDateTime booking;
+
+    @Column(name = "work_hours")
+    private Double workHours;
 
     @Column(name = "personal_number")
     private String personalNumber;
@@ -66,32 +77,49 @@ public class TimeBooking implements Serializable {
         this.personalNumber = personalNumber;
     }
 
+    public double getWorkHours()
+    {
+        return workHours;
+    }
+
+    public TimeBooking workHours(Double workHours) {
+        this.workHours = workHours;
+        return this;
+    }
+
+    public void setWorkHours(Double durationInHours)
+    {
+        this.workHours = durationInHours;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
             return true;
         }
-        if (!(o instanceof TimeBooking)) {
+        if (!(o instanceof TimeBooking))
+        {
             return false;
         }
         return id != null && id.equals(((TimeBooking) o).id);
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
         return getClass().hashCode();
     }
 
     // prettier-ignore
+
     @Override
-    public String toString() {
-        return "TimeBooking{" +
-            "id=" + getId() +
-            ", booking='" + getBooking() + "'" +
-            ", personalNumber='" + getPersonalNumber() + "'" +
-            "}";
+    public String toString()
+    {
+        return "TimeBooking{" + "id=" + id + ", booking=" + booking + ", workHours=" + workHours + ", personalNumber='" + personalNumber + '\'' + '}';
     }
 }

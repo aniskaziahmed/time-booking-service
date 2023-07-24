@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Integration tests for the {@link TimeBookingResource} REST controller.
  */
+//TODO Update and add work hours in these tests
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser

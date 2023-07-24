@@ -1,16 +1,20 @@
 package com.fantasy.tbs.service.impl;
 
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fantasy.tbs.domain.TimeBookDTO;
 import com.fantasy.tbs.domain.TimeBooking;
 import com.fantasy.tbs.repository.TimeBookingRepository;
 import com.fantasy.tbs.service.TimeBookingService;
 import com.fantasy.tbs.service.mapper.TimeBookMapper;
-import java.util.List;
-import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service Implementation for managing {@link TimeBooking}.
@@ -68,6 +72,20 @@ public class TimeBookingServiceImpl implements TimeBookingService {
     public Optional<TimeBooking> findOne(Long id) {
         log.debug("Request to get TimeBooking : {}", id);
         return timeBookingRepository.findById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Set<TimeBooking> findTimeBookingsByEmployeeAndBetweenRange(String employeeNumber, ZonedDateTime startDate, ZonedDateTime endDate)
+    {
+        return timeBookingRepository.findTimeBookingsByEmployeeAndBetweenRange(employeeNumber, startDate, endDate);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Set<TimeBooking> findTimeBookingsBetweenRange(ZonedDateTime startDate, ZonedDateTime endDate)
+    {
+        return timeBookingRepository.findTimeBookingsBetweenRange(startDate, endDate);
     }
 
     @Override

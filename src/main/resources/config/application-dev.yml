@@ -126,3 +126,7 @@ jhipster:
 # ===================================================================
 
 # application:
+employee:
+  service:
+    api:
+      domain: "https://localhost:8080/"

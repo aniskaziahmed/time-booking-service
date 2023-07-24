@@ -29,6 +29,9 @@ import org.zalando.problem.StatusType;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;
 import org.zalando.problem.violations.ConstraintViolationProblem;
+
+import com.fantasy.tbs.exception.EmployeeException;
+
 import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.web.util.HeaderUtil;
 
@@ -128,6 +131,16 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
     @ExceptionHandler
     public ResponseEntity<Problem> handleConcurrencyFailure(ConcurrencyFailureException ex, NativeWebRequest request) {
         Problem problem = Problem.builder().withStatus(Status.CONFLICT).with(MESSAGE_KEY, ErrorConstants.ERR_CONCURRENCY_FAILURE).build();
+        return create(ex, problem, request);
+    }
+
+    @ExceptionHandler(EmployeeException.class)
+    public ResponseEntity<Problem> handleEmployeeException(EmployeeException ex, NativeWebRequest request) {
+        Problem problem = Problem.builder()
+            .withStatus(Status.INTERNAL_SERVER_ERROR)
+            .withTitle("Could not get employees from employee service")
+            .withDetail(ex.getMessage())
+            .build();
         return create(ex, problem, request);
     }
 

@@ -1,14 +1,18 @@
 package com.fantasy.tbs.service;
 
-import com.fantasy.tbs.domain.TimeBookDTO;
-import com.fantasy.tbs.domain.TimeBooking;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
+import com.fantasy.tbs.domain.TimeBookDTO;
+import com.fantasy.tbs.domain.TimeBooking;
 
 /**
  * Service Interface for managing {@link TimeBooking}.
  */
-public interface TimeBookingService {
+public interface TimeBookingService
+{
     /**
      * Save a timeBooking.
      *
@@ -39,6 +43,10 @@ public interface TimeBookingService {
      * @return the entity.
      */
     Optional<TimeBooking> findOne(Long id);
+
+    Set<TimeBooking> findTimeBookingsByEmployeeAndBetweenRange(String employeeNumber, ZonedDateTime startDate, ZonedDateTime endDate);
+
+    Set<TimeBooking> findTimeBookingsBetweenRange(ZonedDateTime startDate, ZonedDateTime endDate);
 
     /**
      * Delete the "id" timeBooking.

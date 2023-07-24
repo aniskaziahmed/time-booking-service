@@ -225,3 +225,7 @@ jhipster:
 # ===================================================================
 
 # application:
+employee:
+  service:
+    api:
+      domain: "https://dummy-employee-service-url/"
